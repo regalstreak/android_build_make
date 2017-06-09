@@ -39,7 +39,9 @@ ifneq ($(filter-out false,$(USE_CCACHE)),)
   # Detect if the system already has ccache installed to use instead of the prebuilt
   ccache := $(shell command -v ccache)
 
-  ifeq ($(ccache),)
+  ifeq ($(HOST_PREFERS_OWN_CCACHE),true)
+    ccache := $(shell which ccache)
+  else
     CCACHE_HOST_TAG := $(HOST_PREBUILT_TAG)
     ccache := prebuilts/misc/$(CCACHE_HOST_TAG)/ccache/ccache
   endif
