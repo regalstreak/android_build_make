@@ -465,7 +465,6 @@ def AppendAssertions(script, info_dict, oem_dicts=None):
   oem_props = info_dict.get("oem_fingerprint_properties")
   if not oem_props:
     device = GetBuildProp("ro.product.device", info_dict)
-    script.AssertDevice(device)
   else:
     if not oem_dicts:
       raise common.ExternalError(
@@ -619,7 +618,6 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   ts = GetBuildProp("ro.build.date.utc", OPTIONS.info_dict)
   ts_text = GetBuildProp("ro.build.date", OPTIONS.info_dict)
-  script.AssertOlderBuild(ts, ts_text)
 
   AppendAssertions(script, OPTIONS.info_dict, oem_dicts)
   device_specific.FullOTA_Assertions()
